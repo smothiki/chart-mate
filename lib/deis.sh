@@ -3,7 +3,7 @@ function deis::healthcheck {
 
   local successes
   while [[ ${successes} -lt 5 ]]; do
-    wait-for-http-status "http://deis.$(deis::get-router-ip).xip.io/v2/" 200
+    wait-for-http-status "http://deis.$(deis::get-router-ip).nip.io/v2/" 200
     let successes+=1
     log-info "Successfully interacted with Deis platform ${successes} time(s)."
     sleep 5
