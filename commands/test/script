@@ -49,18 +49,15 @@ load-config
 
 trap "retrieve-deis-info" EXIT
 
-if [ -z "$PARALLEL_TESTS" ]
-then
-  mkdir -p "${HELM_HOME}/cache/deis/deis-tests"
-  helm fetch deis/deis-tests
-  helm uninstall -n deis -y deis-tests
-  helm install deis-tests
-else
-  mkdir -p "${HELM_HOME}/cache/deis/deis-tests-parallel"
-  helm fetch deis/deis-tests-parallel
-  helm uninstall -n deis -y deis-tests-parallel
-  helm install deis-tests-parallel
+testChart="deis-tests"
+if [ "${PARALLEL_TESTS}" == "true" ]; then
+  testChart="deis-tests-parallel"
 fi
+
+mkdir -p "${HELM_HOME}/cache/deis/${testChart}"
+helm fetch "deis/${testChart}"
+helm uninstall -n deis -y "${testChart}"
+helm install "${testChart}"
 
 wait-for-pod "deis-tests"
 
