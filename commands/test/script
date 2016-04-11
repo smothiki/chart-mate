@@ -77,6 +77,10 @@ echo "---------------------------------------------"
 return-pod-exit-code "deis-tests" "deis-e2e"
 
 log-info "retrieving junit.xml from the artifacts sidecar container"
-kubectl --namespace=deis exec -c artifacts deis-tests cat /root/junit.xml > "${DEIS_LOG_DIR}/junit.xml"
+kubectl --namespace=deis exec -c artifacts deis-tests -- /bin/sh -c "find /root -name junit*.xml" > "${DEIS_LOG_DIR}/all-junit-files.out"
+while read -r file || [[ -n "${file}" ]]
+do
+  kubectl --namespace=deis exec -c artifacts deis-tests cat "${file}" > "${DEIS_LOG_DIR}/$(basename "$file")"
+done < "${DEIS_LOG_DIR}/all-junit-files.out"
 
 exit $(return-pod-exit-code "deis-tests" "deis-e2e" 2>/dev/null)
