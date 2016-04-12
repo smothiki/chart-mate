@@ -49,38 +49,34 @@ load-config
 
 trap "retrieve-deis-info" EXIT
 
-testChart="deis-tests"
-if [ "${PARALLEL_TESTS}" == "true" ]; then
-  testChart="deis-tests-parallel"
-fi
+WORKFLOW_E2E_CONTAINER="tests"
+mkdir -p "${HELM_HOME}/cache/deis/${WORKFLOW_E2E_CHART}"
+helm fetch "deis/${WORKFLOW_E2E_CHART}"
+helm uninstall -n deis -y "${WORKFLOW_E2E_CHART}"
+helm install "${WORKFLOW_E2E_CHART}"
 
-mkdir -p "${HELM_HOME}/cache/deis/${testChart}"
-helm fetch "deis/${testChart}"
-helm uninstall -n deis -y "${testChart}"
-helm install "${testChart}"
-
-wait-for-pod "deis-tests"
+wait-for-pod "${WORKFLOW_E2E_CHART}"
 
 # keep trying to access logs until the pod actually exits
 # as there's a timeout on kubectl logs -f that we
 # sometimes run into
 iterations=0
-while ! return-pod-exit-code "deis-tests" "deis-e2e" &> /dev/null; do
+while ! return-pod-exit-code "${WORKFLOW_E2E_CHART}" "${WORKFLOW_E2E_CONTAINER}" &> /dev/null; do
   log-info "Reloading kubectl logs (#${iterations})"
 
-  kubectl --namespace=deis logs -c deis-e2e -f deis-tests || true
+  kubectl --namespace=deis logs -c "${WORKFLOW_E2E_CONTAINER}" -f "${WORKFLOW_E2E_CHART}" || true
 
   let iterations+=1
 done
 
 echo "---------------------------------------------"
-return-pod-exit-code "deis-tests" "deis-e2e"
+return-pod-exit-code "${WORKFLOW_E2E_CHART}" "${WORKFLOW_E2E_CONTAINER}"
 
 log-info "retrieving junit.xml from the artifacts sidecar container"
-kubectl --namespace=deis exec -c artifacts deis-tests -- /bin/sh -c "find /root -name junit*.xml" > "${DEIS_LOG_DIR}/all-junit-files.out"
+kubectl --namespace=deis exec -c artifacts "${WORKFLOW_E2E_CHART}" -- /bin/sh -c "find /root -name junit*.xml" > "${DEIS_LOG_DIR}/all-junit-files.out"
 while read -r file || [[ -n "${file}" ]]
 do
-  kubectl --namespace=deis exec -c artifacts deis-tests cat "${file}" > "${DEIS_LOG_DIR}/$(basename "$file")"
+  kubectl --namespace=deis exec -c artifacts "${WORKFLOW_E2E_CHART}" cat "${file}" > "${DEIS_LOG_DIR}/$(basename "$file")"
 done < "${DEIS_LOG_DIR}/all-junit-files.out"
 
-exit $(return-pod-exit-code "deis-tests" "deis-e2e" 2>/dev/null)
+exit $(return-pod-exit-code "${WORKFLOW_E2E_CHART}" "${WORKFLOW_E2E_CONTAINER}" 2>/dev/null)
