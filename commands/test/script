@@ -52,6 +52,7 @@ trap "retrieve-deis-info" EXIT
 WORKFLOW_E2E_CONTAINER="tests"
 mkdir -p "${HELM_HOME}/cache/deis/${WORKFLOW_E2E_CHART}"
 helm fetch "deis/${WORKFLOW_E2E_CHART}"
+helm generate "${WORKFLOW_E2E_CHART}"
 helm uninstall -n deis -y "${WORKFLOW_E2E_CHART}"
 helm install "${WORKFLOW_E2E_CHART}"
 
