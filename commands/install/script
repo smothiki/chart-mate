@@ -53,6 +53,54 @@ helm doctor
 log-info "Adding deis helm repo..."
 helm repo add deis https://github.com/deis/charts.git || true
 
+if [ -n ${BUILDER_SHA} ] then
+  export "BUILDER_GIT_TAG"="git-${BUILDER_SHA:0:7}"
+fi
+
+if [ -n ${CONTROLLER_SHA} ] then
+  export "CONTROLLER_GIT_TAG"="git-${CONTROLLER_SHA:0:7}"
+fi
+
+if [ -n ${DOCKERBUILDER_SHA} ] then
+  export "DOCKERBUILDER_GIT_TAG"="git-${DOCKERBUILDER_SHA:0:7}"
+fi
+
+if [ -n ${FLUENTD_SHA} ] then
+  export "FLUENTD_GIT_TAG"="git-${FLUENTD_SHA:0:7}"
+fi
+
+if [ -n ${LOGGER_SHA} ] then
+  export "LOGGER_GIT_TAG"="git-${LOGGER_SHA:0:7}"
+fi
+
+if [ -n ${MINIO_SHA} ] then
+  export "MINIO_GIT_TAG"="git-${MINIO_SHA:0:7}"
+fi
+
+if [ -n ${POSTGRES_SHA}] then
+  export "POSTGRES_GIT_TAG"="git-${POSTGRES_SHA:0:7}"
+fi
+
+if [ -n ${REGISTRY_SHA}] then
+  export "REGISTRY_GIT_TAG"="git-${REGISTRY_SHA:0:7}"
+fi
+
+if [ -n $ROUTER_SHA] then
+  export "ROUTER_GIT_TAG"="git-${ROUTER_SHA:0:7}"
+fi
+
+if [ -n ${SLUGBUILDER_SHA}] then
+  export "SLUGBUILDER_GIT_TAG"="git-${SLUGBUILDER_SHA:0:7}"
+fi
+
+if [ -n ${SLUGRUNNER_SHA} ] then
+  export "SLUGRUNNER_GIT_TAG"="git-${SLUGRUNNER_SHA:0:7}"
+fi
+
+if [ -n ${WORKFLOW_E2E_SHA} ] then
+  export "WORKFLOW_E2E_GIT_TAG"="git-${WORKFLOW_E2E_SHA:0:7}"
+fi
+
 helm fetch "deis/${WORKFLOW_CHART}"
 helm generate "${WORKFLOW_CHART}"
 helm install "${WORKFLOW_CHART}"
