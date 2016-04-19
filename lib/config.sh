@@ -8,8 +8,10 @@ export WORKFLOW_E2E_CHART="${WORKFLOW_E2E_CHART:-workflow-dev-e2e}"
 
 if [ -n ${JOB_NAME} ]; then
   export HELM_HOME="${HOME}/.helm/${JOB_NAME}/${BUILD_NUMBER}"
+  echo "Setting HELM_HOME to $HELM_HOME"
 else
   export HELM_HOME="${HOME}/.helm"
+  echo "Setting HELM_HOME to $HELM_HOME"
 fi
 
 # cluster defaults
