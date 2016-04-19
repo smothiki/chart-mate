@@ -52,7 +52,6 @@ kubectl get events --all-namespaces -w > ${K8S_EVENT_LOG} 2>&1 &
 helm doctor
 log-info "Adding deis helm repo..."
 helm repo add deis https://github.com/deis/charts.git || true
-
 log-info "Fetching deis/${WORKFLOW_CHART}"
 helm fetch "deis/${WORKFLOW_CHART}"
 helm generate "${WORKFLOW_CHART}"

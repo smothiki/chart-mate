@@ -49,6 +49,7 @@ rerun_options_parse "$@"
 # Command implementation
 # ----------------------
 
+log-info "Load up the chart-mate configuration"
 load-config
-
+log-info "Create our GKE cluster"
 gke::create-cluster

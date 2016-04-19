@@ -44,13 +44,13 @@ set -eo pipefail
 # one the corresponding option variables.
 
 rerun_options_parse "$@"
-
+log-info "Load the chart-mate config"
 load-config
-
+log-info "Installing JQ!"
 download-jq
-
+log-info "Setup our GKE environment"
 gke::setup
-
+log-info "Get Helm all setup and happy!"
 helm::setup
-
+log-info "Save off how we talk to our GKE cluster"
 save-environment
