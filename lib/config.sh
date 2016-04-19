@@ -5,7 +5,12 @@ ARCH="$(uname -m)"
 export HELM_ARTIFACT_REPO="${HELM_ARTIFACT_REPO:-helm-ci}"
 export WORKFLOW_CHART="${WORKFLOW_CHART:-workflow-dev}"
 export WORKFLOW_E2E_CHART="${WORKFLOW_E2E_CHART:-workflow-dev-e2e}"
-export HELM_HOME="${MY_HOME}/.helm"
+
+if [ -n ${JOB_NAME} ]; then
+  export HELM_HOME="${HOME}/.helm/${JOB_NAME}/${BUILD_NUMBER}"
+else
+  export HELM_HOME="${HOME}/.helm"
+fi
 
 # cluster defaults
 GOOGLE_SDK_DIR="${HOME}/google-cloud-sdk"
