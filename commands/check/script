@@ -44,7 +44,7 @@ set -eo pipefail
 # one the corresponding option variables.
 
 rerun_options_parse "$@"
-
+log-info "Load the chart-mate configuration"
 load-config
-
+log-info "Health check our deis cluster"
 deis::healthcheck
