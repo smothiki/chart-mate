@@ -57,3 +57,5 @@ helm fetch "deis/${WORKFLOW_CHART}"
 helm generate "${WORKFLOW_CHART}"
 log-info "Installing chart ${WORKFLOW_CHART}"
 helm install "${WORKFLOW_CHART}"
+kubectl describe pods --namespace=deis > ${DEIS_PODS}
+cat ${DEIS_PODS} | grep Image:
