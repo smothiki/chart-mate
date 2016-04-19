@@ -45,6 +45,7 @@ set -eo pipefail
 
 rerun_options_parse "$@"
 
+log-info "Load the chart-mate configuration"
 load-config
 
 kubectl get events --all-namespaces -w > ${K8S_EVENT_LOG} 2>&1 &
@@ -52,10 +53,11 @@ kubectl get events --all-namespaces -w > ${K8S_EVENT_LOG} 2>&1 &
 helm doctor
 log-info "Adding deis helm repo..."
 helm repo add deis https://github.com/deis/charts.git || true
+log-info "Update the charts!"
+helm up
 log-info "Fetching deis/${WORKFLOW_CHART}"
 helm fetch "deis/${WORKFLOW_CHART}"
-helm generate "${WORKFLOW_CHART}"
 log-info "Installing chart ${WORKFLOW_CHART}"
-helm install "${WORKFLOW_CHART}"
+helm install -g -x manifests "${WORKFLOW_CHART}"
 kubectl describe pods --namespace=deis > ${DEIS_PODS}
 cat ${DEIS_PODS} | grep Image:
