@@ -57,3 +57,5 @@ helm fetch "deis/${WORKFLOW_CHART}"
 helm generate "${WORKFLOW_CHART}"
 log-info "Installing chart ${WORKFLOW_CHART}"
 helm install "${WORKFLOW_CHART}"
+log-info "Get all the pods running on the cluster and print the image they are using!"
+kubectl describe pods | grep Image:
