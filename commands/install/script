@@ -61,5 +61,6 @@ log-info "Generate manifests from templates"
 helm generate -x manifests "${WORKFLOW_CHART}"
 log-info "Installing chart ${WORKFLOW_CHART}"
 helm install "${WORKFLOW_CHART}"
-log-info "Running kubectl describe pods and piping the output to ${DEIS_PODS}"
-kubectl describe pods --namespace=deis > "${DEIS_PODS}"
+log-info "Running kubectl describe pods and piping the output to ${DEIS_DESCRIBE}"
+kubectl describe ns,svc,pods,rc,daemonsets --namespace=deis > "${DEIS_DESCRIBE}"
+print-out-running-images || true
