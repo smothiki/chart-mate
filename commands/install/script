@@ -57,7 +57,9 @@ log-info "Update the charts!"
 helm up
 log-info "Fetching deis/${WORKFLOW_CHART}"
 helm fetch "deis/${WORKFLOW_CHART}"
+log-info "Generate manifests from templates"
+helm generate -x manifests "${WORKFLOW_CHART}"
 log-info "Installing chart ${WORKFLOW_CHART}"
-helm install -g -x manifests "${WORKFLOW_CHART}"
+helm install "${WORKFLOW_CHART}"
 log-info "Running kubectl describe pods and piping the output to ${DEIS_PODS}"
-kubectl describe pods --namespace=deis > ${DEIS_PODS}
+kubectl describe pods --namespace=deis > "${DEIS_PODS}"
