@@ -339,3 +339,9 @@ function wait-for-http-status {
     echo -n . 1>&2
   done
 }
+
+function print-out-running-images {
+  if [ -s "${DEIS_DESCRIBE}" ]; then
+    cat "${DEIS_DESCRIBE}" | grep Image:
+  fi
+}
