@@ -49,7 +49,6 @@ log-info "Load the chart-mate configuration"
 load-config
 
 kubectl get events --all-namespaces -w > ${K8S_EVENT_LOG} 2>&1 &
-kubectl get events --all-namespaces -o=custom-columns=NAMESPACE:.metadata.namespace,OBJ:.involvedObject.kind,WHO:.involvedObject.name,MESS:.message > ${K8S_OBJECT_LOG} 2>&1 &
 
 helm doctor
 log-info "Adding deis helm repo..."
