@@ -43,6 +43,7 @@ fi
 mkdir -p "${DEIS_LOG_DIR}"
 
 export K8S_EVENT_LOG="${DEIS_LOG_DIR}/k8s-events.log"
+export K8S_OBJECT_LOG="${DEIS_LOG_DIR}/k8s-objects.log"
 export DEIS_DESCRIBE="${DEIS_LOG_DIR}/deis-describe.txt"
 
 # path setup
