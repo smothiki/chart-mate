@@ -3,16 +3,18 @@ ARCH="$(uname -m)"
 
 # helm configuration
 export HELM_ARTIFACT_REPO="${HELM_ARTIFACT_REPO:-helm}"
+export HELM_REMOTE_NAME="${HELM_REMOTE_NAME:-deis}"
+export HELM_REMOTE_REPO="${HELM_REMOTE_REPO:-https://github.com/deis/charts.git}"
+export HELM_REMOTE_BRANCH="${HELM_REMOTE_BRANCH:-master}"
 export WORKFLOW_CHART="${WORKFLOW_CHART:-workflow-dev}"
 export WORKFLOW_E2E_CHART="${WORKFLOW_E2E_CHART:-workflow-dev-e2e}"
 
-if [ -n ${JOB_NAME} ]; then
+if [ -n "${JOB_NAME}" ]; then
   export HELM_HOME="${HOME}/.helm/${JOB_NAME}/${BUILD_NUMBER}"
-  echo "Setting HELM_HOME to $HELM_HOME"
 else
   export HELM_HOME="${HOME}/.helm"
-  echo "Setting HELM_HOME to $HELM_HOME"
 fi
+echo "Setting HELM_HOME to ${HELM_HOME}"
 
 # cluster defaults
 GOOGLE_SDK_DIR="${HOME}/google-cloud-sdk"

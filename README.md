@@ -57,6 +57,16 @@ associated helm commands such as:
   helm install ...
   ```
 
+If there is a need to use a remote helm repo and/or branch other than the default(s),
+you may export values for `HELM_REMOTE_REPO` and, optionally, `HELM_REMOTE_BRANCH`
+and `HELM_REMOTE_NAME`:
+
+```
+$ export HELM_REMOTE_REPO=https://github.com/my/remote/repo.git
+$ export HELM_REMOTE_BRANCH=my-branch
+$ export HELM_REMOTE_NAME=my-remote
+```
+
 ### test
 
 Run the e2e test suite for deis workflow.
