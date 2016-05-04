@@ -82,10 +82,10 @@ function load-config {
 }
 
 function move-files {
-  helm doctor # need proper ~/.helm directory structure and config.yml
+  helmc doctor # need proper ~/.helmc directory structure and config.yml
 
   log-info "Staging chart directory"
-  rsync -av . ${HOME}/.helm/cache/charts/ --exclude='.git/'
+  rsync -av . ${HOME}/.helmc/cache/charts/ --exclude='.git/'
 }
 
 function save-environment {

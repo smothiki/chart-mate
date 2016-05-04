@@ -47,10 +47,10 @@ rerun_options_parse "$@"
 
 load-config
 
-helm doctor
+helmc doctor
 
 log-info "Adding deis helm repo..."
-helm repo add "${HELM_REMOTE_NAME}" "${HELM_REMOTE_REPO}" || true
+helmc repo add "${HELM_REMOTE_NAME}" "${HELM_REMOTE_REPO}" || true
 
 # log-info "INJECTING VERSIONS!"
 # log-info "-------------------"
@@ -67,4 +67,4 @@ helm repo add "${HELM_REMOTE_NAME}" "${HELM_REMOTE_REPO}" || true
 # bumpver-if-set "${WORKFLOW_CHART}" "dockerbuilder" "${DOCKERBUILDER_SHA}"
 # bumpver-if-set "${WORKFLOW_E2E_CHART}" "workflow-e2e" "${WORKFLOW_E2E_SHA}"
 # log-info "-------------------"
-# rsync --exclude ".*/" -av . "${HELM_HOME}/cache/${HELM_REMOTE_NAME}/" > /dev/null
+# rsync --exclude ".*/" -av . "${HELMC_HOME}/cache/${HELM_REMOTE_NAME}/" > /dev/null
