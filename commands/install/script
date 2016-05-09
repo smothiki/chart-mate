@@ -9,7 +9,7 @@
 # The `command` and `usage` comments describe the command
 # and show its options.
 #
-#/ command: chart-mate:install: "install deis with helm"
+#/ command: chart-mate:install: "install deis with helm classic"
 #/ usage: rerun chart-mate:install [options]
 
 # Load common functions
@@ -50,31 +50,31 @@ load-config
 
 kubectl get events --all-namespaces -w > ${K8S_EVENT_LOG} 2>&1 &
 
-helm doctor
+helmc doctor
 
 log-info "Removing helm repo ${HELM_REMOTE_NAME} if exists..."
-helm repo remove "${HELM_REMOTE_NAME}" || true
+helmc repo remove "${HELM_REMOTE_NAME}" || true
 
 log-info "Adding helm repo ${HELM_REMOTE_REPO} as ${HELM_REMOTE_NAME}..."
-helm repo add "${HELM_REMOTE_NAME}" "${HELM_REMOTE_REPO}" || true
+helmc repo add "${HELM_REMOTE_NAME}" "${HELM_REMOTE_REPO}" || true
 
 if [ "${HELM_REMOTE_BRANCH}" != "master" ]; then
   log-info "Checking out ${HELM_REMOTE_BRANCH} branch..."
-  cd "${HELM_HOME}/cache/${HELM_REMOTE_NAME}"
+  cd "${HELMC_HOME}/cache/${HELM_REMOTE_NAME}"
   git checkout "${HELM_REMOTE_BRANCH}"
 fi
 
 log-info "Update the charts!"
-helm up
+helmc up
 
 log-info "Fetching ${HELM_REMOTE_NAME}/${WORKFLOW_CHART}"
-helm fetch "${HELM_REMOTE_NAME}/${WORKFLOW_CHART}"
+helmc fetch "${HELM_REMOTE_NAME}/${WORKFLOW_CHART}"
 
 log-info "Generate manifests from templates"
-helm generate -f -x manifests "${WORKFLOW_CHART}"
+helmc generate -f -x manifests "${WORKFLOW_CHART}"
 
 log-info "Installing chart ${WORKFLOW_CHART}"
-helm install "${WORKFLOW_CHART}"
+helmc install "${WORKFLOW_CHART}"
 
 log-info "Running kubectl describe pods and piping the output to ${DEIS_DESCRIBE}"
 kubectl describe ns,svc,pods,rc,daemonsets --namespace=deis > "${DEIS_DESCRIBE}"

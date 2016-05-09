@@ -9,7 +9,7 @@
 # The `command` and `usage` comments describe the command
 # and show its options.
 #
-#/ command: chart-mate:uninstall: "uninstall deis with helm"
+#/ command: chart-mate:uninstall: "uninstall deis with helm classic"
 #/ usage: rerun chart-mate:uninstall [options]
 
 # Load common functions
@@ -47,4 +47,4 @@ rerun_options_parse "$@"
 
 load-config
 
-helm uninstall -n deis -y "${WORKFLOW_CHART}"
+helmc uninstall -n deis -y "${WORKFLOW_CHART}"

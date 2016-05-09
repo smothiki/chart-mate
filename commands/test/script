@@ -50,11 +50,11 @@ load-config
 trap "retrieve-deis-info" EXIT
 
 WORKFLOW_E2E_CONTAINER="tests"
-mkdir -p "${HELM_HOME}/cache/${HELM_REMOTE_NAME}/${WORKFLOW_E2E_CHART}"
-helm fetch "${HELM_REMOTE_NAME}/${WORKFLOW_E2E_CHART}"
-helm generate -f "${WORKFLOW_E2E_CHART}"
-helm uninstall -n deis -y "${WORKFLOW_E2E_CHART}"
-helm install "${WORKFLOW_E2E_CHART}"
+mkdir -p "${HELMC_HOME}/cache/${HELM_REMOTE_NAME}/${WORKFLOW_E2E_CHART}"
+helmc fetch "${HELM_REMOTE_NAME}/${WORKFLOW_E2E_CHART}"
+helmc generate -f "${WORKFLOW_E2E_CHART}"
+helmc uninstall -n deis -y "${WORKFLOW_E2E_CHART}"
+helmc install "${WORKFLOW_E2E_CHART}"
 
 wait-for-pod "${WORKFLOW_E2E_CHART}"
 

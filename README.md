@@ -4,7 +4,7 @@ chart-mate
 [![Build Status](https://travis-ci.org/sgoings/chart-mate.svg?branch=master)](https://travis-ci.org/sgoings/chart-mate)
 
 chart-mate is a [rerun][rerun] module that can be run on OSX or Linux in order
-to help run e2e tests of [helm][helm] charts on a real [kubernetes][kubernetes]
+to help run e2e tests of [helm classic][helm] charts on a real [kubernetes][kubernetes]
 cluster.
 
 Purpose
@@ -22,7 +22,7 @@ Actions (and why they need to exist)
 
 ### bumpver
 
-Change the versions of components. In the beginning, helm didn't have an easy
+Change the versions of components. In the beginning, helm classic didn't have an easy
 automated way to change versions or references to variable items in a chart.
 
 ### check
@@ -44,17 +44,17 @@ file determines what cluster is acted upon by other actions.
 
 ### install
 
-Installs deis with helm (ensures that the repo exists and is installable as much
+Installs deis with helm classic (ensures that the repo exists and is installable as much
 as possible). There's just enough madness when it comes to installing charts
 (especially in tandem with the bumpver command) that this wraps some of the
-associated helm commands such as:
+associated helm classic commands such as:
 
   ```
-  helm repo add ...
-  helm fetch ...
-  helm update ...
-  helm generate ...
-  helm install ...
+  helmc repo add ...
+  helmc fetch ...
+  helmc update ...
+  helmc generate ...
+  helmc install ...
   ```
 
 If there is a need to use a remote helm repo and/or branch other than the default(s),

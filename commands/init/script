@@ -50,7 +50,7 @@ log-info "Installing JQ!"
 download-jq
 log-info "Setup our GKE environment"
 gke::setup
-log-info "Get Helm all setup and happy!"
-helm::setup
+log-info "Get Helm Classic all setup and happy!"
+helmc::setup
 log-info "Save off how we talk to our GKE cluster"
 save-environment

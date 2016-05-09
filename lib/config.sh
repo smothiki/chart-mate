@@ -1,7 +1,7 @@
 PLATFORM="$(uname | tr '[:upper:]' '[:lower:]')"
 ARCH="$(uname -m)"
 
-# helm configuration
+# helm classic configuration
 export HELM_ARTIFACT_REPO="${HELM_ARTIFACT_REPO:-helm}"
 export HELM_REMOTE_NAME="${HELM_REMOTE_NAME:-deis}"
 export HELM_REMOTE_REPO="${HELM_REMOTE_REPO:-https://github.com/deis/charts.git}"
@@ -10,11 +10,11 @@ export WORKFLOW_CHART="${WORKFLOW_CHART:-workflow-dev}"
 export WORKFLOW_E2E_CHART="${WORKFLOW_E2E_CHART:-workflow-dev-e2e}"
 
 if [ -n "${JOB_NAME}" ]; then
-  export HELM_HOME="${HOME}/.helm/${JOB_NAME}/${BUILD_NUMBER}"
+  export HELMC_HOME="${HOME}/.helmc/${JOB_NAME}/${BUILD_NUMBER}"
 else
-  export HELM_HOME="${HOME}/.helm"
+  export HELMC_HOME="${HOME}/.helmc"
 fi
-echo "Setting HELM_HOME to ${HELM_HOME}"
+echo "Setting HELMC_HOME to ${HELMC_HOME}"
 
 # cluster defaults
 GOOGLE_SDK_DIR="${HOME}/google-cloud-sdk"
@@ -32,7 +32,7 @@ export SECRETS_DIR="${CHART_MATE_ENV_ROOT}"
 export HEALTHCHECK_TIMEOUT_SEC=120
 
 # credentials
-export GCLOUD_CREDENTIALS_FILE="${GCLOUD_CREDENTIALS_FILE:-${HOME}/.secrets/helm-testing-creds.json}"
+export GCLOUD_CREDENTIALS_FILE="${GCLOUD_CREDENTIALS_FILE:-${HOME}/.secrets/helm-classic-testing-creds.json}"
 if [ ! -z "${JENKINS_URL}" ]; then
   # Running in Jenkins
   mkdir -p "${HOME}/.secrets/"
