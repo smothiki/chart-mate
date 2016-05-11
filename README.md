@@ -101,7 +101,7 @@ Hacking Setup
 1. Get `chart-mate`
 
   ```
-  git clone https://github.com/sgoings/chart-mate.git
+  git clone https://github.com/deis/chart-mate.git
   cd chart-mate
   ```
 
