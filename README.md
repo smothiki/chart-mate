@@ -1,7 +1,7 @@
 chart-mate
 ======
 
-[![Build Status](https://travis-ci.org/sgoings/chart-mate.svg?branch=master)](https://travis-ci.org/sgoings/chart-mate)
+[![Build Status](https://travis-ci.org/deis/chart-mate.svg?branch=master)](https://travis-ci.org/deis/chart-mate)
 
 chart-mate is a [rerun][rerun] module that can be run on OSX or Linux in order
 to help run e2e tests of [helm classic][helm] charts on a real [kubernetes][kubernetes]
