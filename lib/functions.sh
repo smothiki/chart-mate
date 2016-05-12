@@ -171,18 +171,6 @@ function url_decode {
   printf '%b' "${url_encoded//%/\\x}"
 }
 
-function download-chart-mate {
-  RERUN_MODULES_REPO="${RERUN_MODULES_REPO:-"rerun-modules"}"
-  CHART_MATE_REPO_URL="https://bintray.com/sgoings/${RERUN_MODULES_REPO}/chart-mate/_latestVersion"
-  CHART_MATE_URL_BASE="https://dl.bintray.com/sgoings/${RERUN_MODULES_REPO}"
-
-  VERSION="$(get_latest_version "chart-mate" "${CHART_MATE_REPO_URL}")"
-
-  echo "Downloading chart-mate from Bintray (${VERSION})..."
-  curl -Ls "${CHART_MATE_URL_BASE}/rerun-${VERSION}" > rerun
-  chmod +x rerun
-}
-
 function check-all-pods-running {
   local namespace="${1:-deis}"
 
