@@ -1,8 +1,8 @@
 {
   "package": {
     "name": "chart-mate",
-    "repo": "rerun-modules",
-    "subject": "sgoings"
+    "repo": "deisci",
+    "subject": "deis"
   },
   "version": {
     "name": "0.0.0"
