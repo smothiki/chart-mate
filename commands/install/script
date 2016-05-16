@@ -70,6 +70,9 @@ helmc up
 log-info "Fetching ${HELM_REMOTE_NAME}/${WORKFLOW_CHART}"
 helmc fetch "${HELM_REMOTE_NAME}/${WORKFLOW_CHART}"
 
+log-info "modify generate_params.toml ${HELM_REMOTE_NAME}/${WORKFLOW_CHART}/tpl/generate_param.toml"
+generator "params.toml" "${HELM_REMOTE_NAME}/${WORKFLOW_CHART}/tpl/generate_param.toml"
+
 log-info "Generate manifests from templates"
 helmc generate -f -x manifests "${WORKFLOW_CHART}"
 

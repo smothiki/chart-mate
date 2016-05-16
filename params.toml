@@ -1,0 +1,126 @@
+#helm:generate $HELM_GENERATE_DIR/tpl/minio.sh
+#
+# This is the main configuration file for Deis object storage. The values in
+# this file are passed into the appropriate services so that they can configure
+# themselves for persisting data in object storage.
+#
+# In general, all object storage credentials must be able to read and write to
+# the container or bucket they are configured to use.
+#
+# When you change values in this file, make sure to re-run `helmc generate`
+# on this chart.
+
+# Set the storage backend
+#
+# Valid values are:
+# - s3: Store persistent data in AWS S3 (configure in S3 section)
+# - azure: Store persistent data in Azure's object storage
+# - gcs: Store persistent data in Google Cloud Storage
+# - minio: Store persistent data on in-cluster Minio server
+storage = "{{.StorageType}}"
+
+[minio]
+org = "deisci"
+pullPolicy = "Always"
+dockerTag = "canary"
+
+[s3]
+accesskey = "{{.Accesskey}}"
+secretkey = "{{.Secretkey}}"
+# Any S3 region
+region = "{{.Region}}"
+# Your buckets.
+registry_bucket = "{{.RegBucket}}"
+database_bucket = "{{.DataBucket}}"
+builder_bucket = "{{.BuildBucket}}"
+
+[azure]
+accountname = "{{.Accountname}}"
+accountkey = "{{.Accountkey}}"
+registry_container = "{{.RegBucket}}"
+database_container = "{{.DataBucket}}"
+builder_container = "{{.BuildBucket}}"
+
+[gcs]
+# key_json is expanded into a JSON file on the remote server. It must be
+# well-formatted JSON data.
+key_json = '''{{.KeyJSON}}'''
+registry_bucket = "{{.RegBucket}}"
+database_bucket = "{{.DataBucket}}"
+builder_bucket = "{{.BuildBucket}}"
+
+[builder]
+org = "deisci"
+pullPolicy = "Always"
+dockerTag = "canary"
+
+[slugbuilder]
+org = "deisci"
+pullPolicy = "Always"
+dockerTag = "canary"
+
+[dockerbuilder]
+org = "deisci"
+pullPolicy = "Always"
+dockerTag = "canary"
+
+[controller]
+org = "deisci"
+pullPolicy = "Always"
+dockerTag = "canary"
+
+[slugrunner]
+org = "deisci"
+pullPolicy = "Always"
+dockerTag = "canary"
+
+[database]
+org = "deisci"
+pullPolicy = "Always"
+dockerTag = "canary"
+
+[registry]
+org = "deisci"
+pullPolicy = "Always"
+dockerTag = "canary"
+
+[workflowManager]
+org = "deisci"
+pullPolicy = "Always"
+dockerTag = "canary"
+versionsApiURL = "https://versions-staging.deis.com"
+
+[logger]
+org = "deisci"
+pullPolicy = "Always"
+dockerTag = "canary"
+
+[router]
+org = "deisci"
+pullPolicy = "Always"
+dockerTag = "canary"
+
+[fluentd]
+org = "deisci"
+pullPolicy = "Always"
+dockerTag = "canary"
+
+[grafana]
+org = "deisci"
+pullPolicy = "Always"
+dockerTag = "canary"
+
+[influxdb]
+org = "deisci"
+pullPolicy = "Always"
+dockerTag = "canary"
+
+[telegraf]
+org = "deisci"
+pullPolicy = "Always"
+dockerTag = "canary"
+
+[stdoutmetrics]
+org = "deisci"
+pullPolicy = "Always"
+dockerTag = "canary"

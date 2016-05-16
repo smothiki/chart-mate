@@ -28,3 +28,6 @@ test:
 
 docker-build:
 	docker build -t "${SHORT_NAME}:${VERSION}" .
+
+gen-build:
+	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -a -installsuffix cgo -ldflags '-s' -o bin/generator generate.go || exit 1
